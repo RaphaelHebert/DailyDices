@@ -32,7 +32,11 @@ const DiceRoll: React.FC = () => {
       return response.data
     },
     onSuccess: (score) => {
-      diceScores.value.push(score)
+      if (diceScores.value) {
+        diceScores.value.push(score)
+        return
+      }
+      diceScores.value = [score]
     },
     enabled: false,
     refetchOnMount: false,
