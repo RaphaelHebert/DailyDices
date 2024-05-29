@@ -30,3 +30,10 @@ export async function getUserById(id: string): Promise<IUser> {
   const response = await axiosInstance.get(`${base_URL}/${id}`)
   return response.data as IUser
 }
+
+export async function getAllUsers(): Promise<IUser[]> {
+  const axiosInstance = configureAxios()
+
+  const response = await axiosInstance.get(`${base_URL}/all`)
+  return response.data as IUser[]
+}

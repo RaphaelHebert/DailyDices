@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Stack, Alert } from '@mui/material'
+import { Button, Stack, Alert, Paper } from '@mui/material'
 import { signal } from '@preact/signals-react'
 import { useQuery } from 'react-query'
 import { fetchDiceRollsMock, fetchDiceRolls } from '@/api/dice'
@@ -65,58 +65,62 @@ const DiceRoll: React.FC = () => {
   const isRolling = isFetching || rolling.value
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'left',
-      }}
-    >
-      <Stack sx={{ flex: 1 }}>
-        <h1>Dice Roller</h1>
-        <Button
-          type='button'
-          onClick={handleRollDice}
-          variant='contained'
-          color='secondary'
-          disabled={isRolling}
-        >
-          {isRolling ? 'Rolling...' : 'Roll Dice'}
-        </Button>
-        <div>
-          <h2>Dice Rolls:</h2>
-          <Stack
-            direction={'row'}
-            spacing={3}
+    <div style={{ display: 'flex', justifyContent: 'left' }}>
+      <Paper
+        elevation={3}
+        style={{
+          padding: '20px',
+          margin: '20px',
+          flex: 1,
+        }}
+      >
+        <Stack sx={{ flex: 1 }}>
+          <h1>Dice Roller</h1>
+          <Button
+            type='button'
+            onClick={handleRollDice}
+            variant='contained'
+            color='secondary'
+            disabled={isRolling}
           >
-            {isRolling && (
-              <>
-                {roll.value?.map((dice, index) => (
-                  <Dice
-                    key={index}
-                    face={dice || 1}
-                    easeIn={easeIn.value}
-                  />
-                ))}
-              </>
-            )}
-            {!isRolling && isSuccess && (
-              <>
-                {score &&
-                  score.score.map((value, index) => (
+            {isRolling ? 'Rolling...' : 'Roll Dice'}
+          </Button>
+          <div>
+            <h2>Dice Rolls:</h2>
+            <Stack
+              direction={'row'}
+              spacing={3}
+            >
+              {isRolling && (
+                <>
+                  {roll.value?.map((dice, index) => (
                     <Dice
-                      face={value}
                       key={index}
+                      face={dice || 1}
                       easeIn={easeIn.value}
                     />
                   ))}
-              </>
-            )}
-            {!isRolling && isError && (
-              <Alert severity='error'>{`An error occurred: ${error}`}</Alert>
-            )}
-          </Stack>
-        </div>
-      </Stack>
+                </>
+              )}
+              {!isRolling && isSuccess && (
+                <>
+                  {score &&
+                    score.score.map((value, index) => (
+                      <Dice
+                        face={value}
+                        key={index}
+                        easeIn={easeIn.value}
+                      />
+                    ))}
+                </>
+              )}
+              {!isRolling && isError && (
+                <Alert severity='error'>{`An error occurred: ${error}`}</Alert>
+              )}
+            </Stack>
+          </div>
+        </Stack>
+      </Paper>
       <Scores />
     </div>
   )

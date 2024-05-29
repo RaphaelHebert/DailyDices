@@ -1,5 +1,5 @@
 import ProfileButton from './ProfileButton'
-import LoginButton from '@/components/LoginButton'
+import { LoginButton, MenuButton } from '@/components'
 import { isLoggedIn } from '@/signals'
 
 const Header: React.FC = () => {
@@ -8,9 +8,10 @@ const Header: React.FC = () => {
       style={{
         width: '100%',
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
       }}
     >
+      <MenuButton />
       {isLoggedIn.value ? <ProfileButton /> : <LoginButton />}
     </div>
   )
