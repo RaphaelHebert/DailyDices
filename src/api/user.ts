@@ -34,6 +34,6 @@ export async function getUserById(id: string): Promise<IUser> {
 export async function getAllUsers(): Promise<IUser[]> {
   const axiosInstance = configureAxios()
 
-  const response = await axiosInstance.get(`${base_URL}/all`)
+  const response = await axiosInstance.get(`${base_URL}/user/all`)
   return response.data as IUser[]
 }

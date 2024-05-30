@@ -68,6 +68,7 @@ const UpdateForm: React.FC = () => {
         email: formData.email,
         username: formData.username,
         uid: user.value.uid,
+        isAdmin: user.value.isAdmin,
       }
       updateUserMutation(payload)
     } catch (error) {

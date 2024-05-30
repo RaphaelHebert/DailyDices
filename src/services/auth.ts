@@ -52,7 +52,7 @@ export const isUserLoggedIn = (): void => {
 }
 
 export const logout = (): void => {
-  user.value = { username: '', email: '', uid: '' }
+  user.value = { username: '', email: '', uid: '', isAdmin: false }
   isScoreFetched.value = false
   diceScores.value = []
   isLoggedIn.value = false
