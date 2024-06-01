@@ -7,6 +7,7 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
+  Box,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { menuModal } from '@/signals'
@@ -29,13 +30,18 @@ const MenuBody: React.FC = () => {
         menuModal.value = false
       }}
     >
-      <div
+      <Box
         role='presentation'
         onClick={() => {
           menuModal.value = false
         }}
         onKeyDown={() => {
           menuModal.value = false
+        }}
+        sx={{
+          width: 250,
+          bgcolor: 'background.paper',
+          p: 0.5,
         }}
       >
         <IconButton>
@@ -52,7 +58,7 @@ const MenuBody: React.FC = () => {
             </ListItemButton>
           ))}
         </List>
-      </div>
+      </Box>
     </Drawer>
   )
 }

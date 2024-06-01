@@ -3,17 +3,18 @@ import UpdateForm from './UpdateForm'
 import DeleteForm from './DeleteForm'
 
 import { profileOpen } from '@/signals'
-import { Modal, Box, Stack } from '@mui/material'
+import { Drawer, Box, Stack } from '@mui/material'
 
 const ProfileModal: React.FC = () => {
   return (
-    <Modal
+    <Drawer
+      anchor='right'
       open={profileOpen.value}
       onClose={() => {
         profileOpen.value = false
       }}
-      aria-labelledby='login-modal-title'
-      aria-describedby='login-modal-description'
+      aria-labelledby='profile-modal-title'
+      aria-describedby='profile-modal-description'
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -21,17 +22,17 @@ const ProfileModal: React.FC = () => {
       }}
     >
       <Box
+        role='presentation'
+        onClick={() => {
+          profileOpen.value = false
+        }}
+        onKeyDown={() => {
+          profileOpen.value = false
+        }}
         sx={{
-          position: 'absolute',
           width: 400,
           bgcolor: 'background.paper',
-          boxShadow: 24,
           p: 4,
-          transform: profileOpen.value ? 'translateX(50%)' : 'translateX(100%)',
-          transition: 'transform 0.3s ease-in-out',
-          left: 0,
-          top: 0,
-          bottom: 0,
         }}
       >
         <Stack spacing={2}>
@@ -40,7 +41,7 @@ const ProfileModal: React.FC = () => {
           <DeleteForm />
         </Stack>
       </Box>
-    </Modal>
+    </Drawer>
   )
 }
 
