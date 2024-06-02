@@ -36,12 +36,6 @@ const LoginModal: React.FC = () => {
     >
       <Box
         role='presentation'
-        onClick={() => {
-          loginOpen.value = false
-        }}
-        onKeyDown={() => {
-          loginOpen.value = false
-        }}
         sx={{
           width: 400,
           bgcolor: 'background.paper',

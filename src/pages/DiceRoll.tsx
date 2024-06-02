@@ -6,7 +6,7 @@ import { fetchDiceRollsMock, fetchDiceRolls } from '@/api/dice'
 
 import { DiceRoll as DiceRollType } from '@/type'
 import { Dice, Scores } from '@/components'
-import { diceScores, authToken } from '@/signals'
+import { user, authToken } from '@/signals'
 
 const roll = signal<DiceRollType>([])
 
@@ -32,11 +32,10 @@ const DiceRoll: React.FC = () => {
       return response.data
     },
     onSuccess: (score) => {
-      if (diceScores.value) {
-        diceScores.value.push(score)
+      if (user.value) {
+        user.value.scores.push(score)
         return
       }
-      diceScores.value = [score]
     },
     enabled: false,
     refetchOnMount: false,

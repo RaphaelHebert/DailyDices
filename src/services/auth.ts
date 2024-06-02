@@ -7,7 +7,6 @@ import {
   loginOpen,
   isLoggedIn,
   isScoreFetched,
-  diceScores,
   user,
 } from '@/signals'
 
@@ -29,6 +28,7 @@ export const handleLoginSuccess = (token: string): void => {
 
   const userData = jwtDecode<IUser>(token)
 
+  console.log({ userData })
   user.value = userData
   isLoggedIn.value = true
   loginOpen.value = false
@@ -36,7 +36,7 @@ export const handleLoginSuccess = (token: string): void => {
   return
 }
 
-export const isUserLoggedIn = (): void => {
+export const isUserLoggedIn = (): boolean => {
   const token = window.localStorage.getItem('token')
   if (token) {
     const decoded = jwtDecode<JwtPayload>(token)
@@ -45,16 +45,17 @@ export const isUserLoggedIn = (): void => {
       user.value.username = decoded.username
       user.value.email = decoded.email
       user.value.uid = decoded.uid
+      user.value.scores = decoded.scores
       authToken.value = token
+      return true
     }
   }
-  return
+  return false
 }
 
 export const logout = (): void => {
-  user.value = { username: '', email: '', uid: '', isAdmin: false }
+  user.value = { username: '', email: '', uid: '', isadmin: false, scores: [] }
   isScoreFetched.value = false
-  diceScores.value = []
   isLoggedIn.value = false
   authToken.value = null
   window.localStorage.removeItem('token')

@@ -23,12 +23,6 @@ const ProfileModal: React.FC = () => {
     >
       <Box
         role='presentation'
-        onClick={() => {
-          profileOpen.value = false
-        }}
-        onKeyDown={() => {
-          profileOpen.value = false
-        }}
         sx={{
           width: 400,
           bgcolor: 'background.paper',

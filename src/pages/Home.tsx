@@ -7,6 +7,7 @@ import { Header, MenuBody } from '@/components'
 
 import UsersList from './UsersList'
 import DiceRoll from './DiceRoll'
+import PrivateRoute from '@/services/privateRoute'
 
 const Home: React.FC = () => {
   return (
@@ -15,8 +16,13 @@ const Home: React.FC = () => {
       <Routes>
         <Route
           path='/usersList'
-          element={<UsersList />}
-        />
+          element={<PrivateRoute />}
+        >
+          <Route
+            path='/usersList'
+            element={<UsersList />}
+          />
+        </Route>
         <Route
           path='/'
           element={<DiceRoll />}

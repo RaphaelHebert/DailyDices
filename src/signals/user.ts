@@ -6,5 +6,6 @@ export const user: Signal<IUser> = signal({
   username: '',
   email: '',
   uid: '',
-  isAdmin: false,
+  isadmin: false,
+  scores: [],
 })

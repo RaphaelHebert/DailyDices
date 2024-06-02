@@ -6,5 +6,5 @@ export {
   updateUser,
   getUserById,
   getAllUsers,
+  deleteUserById,
 } from './user'
-export { scores } from './scores'

@@ -1,8 +1,10 @@
+import { IScores } from './dice'
 export interface IUser {
   username: string
   email: string
-  isAdmin: boolean
+  isadmin: boolean
   uid: string
+  scores: IScores
 }
 
 export interface IUserLogin {
