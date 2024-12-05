@@ -11,7 +11,6 @@ import {
 import { deleteUser } from '@/api'
 import { user, profileOpen } from '@/signals'
 
-import { IUser } from '@/type'
 import { logout } from '@/services'
 
 import { signal, Signal } from '@preact/signals-react'
@@ -24,7 +23,7 @@ const handleCheckboxChange = () => {
 }
 
 const DeleteForm: React.FC = () => {
-  const deleteMutation = useMutation<void, Error, IUser>(deleteUser, {
+  const deleteMutation = useMutation(deleteUser, {
     onSuccess: () => {
       logout()
       profileOpen.value = false
@@ -72,7 +71,7 @@ const DeleteForm: React.FC = () => {
           if (user.value && isDeleting.value && isChecked.value) {
             isChecked.value = false
             isDeleting.value = false
-            deleteMutation.mutate(user.value as unknown as IUser)
+            deleteMutation.mutate()
           } else {
             isDeleting.value = true
           }

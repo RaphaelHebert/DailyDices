@@ -9,24 +9,13 @@ import {
   ListItemText,
   Divider,
 } from '@mui/material'
-import { useQuery } from 'react-query'
+import { formatDate } from '@/services'
 
-import { scores } from '@/api'
-import { diceScores, isLoggedIn, isScoreFetched } from '@/signals'
+import { isLoggedIn, user } from '@/signals'
 
 // TODO implement infinite query or query only last 100 scores?
 
 const Scores: React.FC = () => {
-  const { isFetching } = useQuery({
-    queryKey: 'fetchingScores',
-    queryFn: scores,
-    enabled: isLoggedIn.value && !isScoreFetched.value,
-    onSuccess: (data) => {
-      diceScores.value = data
-      isScoreFetched.value = true
-    },
-  })
-
   return (
     <Stack
       style={{
@@ -46,20 +35,37 @@ const Scores: React.FC = () => {
         elevation={3}
         sx={{ height: '80vh' }}
       >
-        {isFetching ? (
-          <p>Fetching...</p>
-        ) : (
+        {isLoggedIn && (
           <List>
-            {diceScores.value &&
-              diceScores.value.length > 0 &&
-              diceScores.value.map((value, index) => (
-                <React.Fragment key={value.uid}>
-                  <ListItem>
-                    <ListItemText primary={value.score} />
-                  </ListItem>
-                  {index < diceScores.value.length - 1 && <Divider />}
-                </React.Fragment>
-              ))}
+            {user.value &&
+              user.value.scores &&
+              user.value.scores.map((value, index) => {
+                return (
+                  <React.Fragment key={value.id}>
+                    <ListItem>
+                      <ListItemText
+                        sx={{ marginRight: 4 }}
+                        secondary={formatDate(value.date * 1000)}
+                      />
+                      <ListItemText
+                        primary={value.score.map((num) => (
+                          <span
+                            style={{
+                              marginRight: '4px',
+                              padding: '4px',
+                              border: '1px solid grey',
+                            }}
+                            key={value.id + num}
+                          >
+                            {num}
+                          </span>
+                        ))}
+                      />
+                    </ListItem>
+                    {index < user.value.scores.length - 1 && <Divider />}
+                  </React.Fragment>
+                )
+              })}
           </List>
         )}
       </Paper>

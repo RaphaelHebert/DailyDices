@@ -1,8 +1,9 @@
 export type DiceRoll = number[]
 
-export interface Score {
+export interface IScore {
   score: DiceRoll
-  uid: string // UID of the score, to be replaced by date
+  date: number
+  id: string // UID of the score, to be replaced by date
 }
 
-export type Scores = Score[]
+export type IScores = IScore[]

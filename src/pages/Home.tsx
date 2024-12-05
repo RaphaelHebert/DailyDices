@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 
-import LoginModal from '@/components/LoginModal'
-import ProfileModal from '@/components/ProfileModal'
+import { Header, MenuBody, ProfileModal, LoginModal } from '@/components'
 
-import Header from '@/components/Header'
+import UsersList from './UsersList'
+import About from './About'
 
 import DiceRoll from './DiceRoll'
+import PrivateRoute from '@/services/privateRoute'
 
 const Home: React.FC = () => {
   return (
@@ -13,12 +14,26 @@ const Home: React.FC = () => {
       <Header />
       <Routes>
         <Route
+          path='/usersList'
+          element={<PrivateRoute />}
+        >
+          <Route
+            path='/usersList'
+            element={<UsersList />}
+          />
+        </Route>
+        <Route
           path='/'
           element={<DiceRoll />}
+        />
+        <Route
+          path='/about'
+          element={<About />}
         />
       </Routes>
       <ProfileModal />
       <LoginModal />
+      <MenuBody />
     </>
   )
 }

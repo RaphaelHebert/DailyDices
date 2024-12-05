@@ -10,9 +10,14 @@ export async function addUser(user: IUserLogin): Promise<IUser> {
   return response.data as IUser
 }
 
-export async function deleteUser(user: IUser): Promise<void> {
+export async function deleteUserById(user: IUser): Promise<void> {
   const axiosInstance = configureAxios()
   await axiosInstance.delete(`${base_URL}/user/${user.uid}`)
+}
+
+export async function deleteUser(): Promise<void> {
+  const axiosInstance = configureAxios()
+  await axiosInstance.delete(`${base_URL}/user/delete`)
 }
 
 export async function updateUser(user: IUser): Promise<AxiosResponse> {
@@ -29,4 +34,11 @@ export async function getUserById(id: string): Promise<IUser> {
 
   const response = await axiosInstance.get(`${base_URL}/${id}`)
   return response.data as IUser
+}
+
+export async function getAllUsers(): Promise<IUser[]> {
+  const axiosInstance = configureAxios()
+
+  const response = await axiosInstance.get(`${base_URL}/user/all`)
+  return response.data as IUser[]
 }
